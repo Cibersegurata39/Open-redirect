@@ -14,6 +14,6 @@ Para llevar a cabo este ejercicio he utilizado la plataforma [Docker labs](https
 
 <code>sudo bash autodeploy.sh hojaytinta.tar</code>
 
-<img width="822" height="603" alt="image" src="https://github.com/user-attachments/assets/68cb0668-57f9-4eda-a6d4-615a1eb358aa" />
+<img width="522" height="303" alt="image" src="https://github.com/user-attachments/assets/68cb0668-57f9-4eda-a6d4-615a1eb358aa" />
 
 Una vez realizadas estas acciones, se procede a explotar la vulnerabilidad.
