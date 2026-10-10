@@ -19,18 +19,20 @@ Para llevar a cabo este ejercicio he utilizado la plataforma [Docker labs](https
 
 Una vez realizadas estas acciones, se procede a explotar la vulnerabilidad.
 
-Al acceder a la dirección *web* damos con una página de venta de libros, para encontrar el primer *open redirect* hay que cerrar sesión. Antes, como es obvio, es necesario iniciar sesión con los datos ya facilitados en la página. Para leer la petición que se produzca con el cierre de la sesión se utiliza **Burp Suite** y desde la la pestaña Proxy>HTTPhistory analizamos la petición GET del cierre de sesión.
+Al acceder a la dirección *web* damos con una página de venta de libros, para encontrar el primer *open redirect* hay que cerrar sesión. Antes, como es obvio, es necesario iniciar sesión con los datos ya facilitados en la página. Para leer la petición que se produce con el cierre de la sesión se utiliza **Burp Suite** y desde la la pestaña Proxy>HTTPhistory analizamos la petición GET del cierre de sesión.
 
 <img width="743" height="712" alt="Captura de pantalla 2026-10-07 004311" src="https://github.com/user-attachments/assets/baf7aa29-e1a7-4572-b34c-f00a3abfc0ad" />
 
 <code>/account/logout/callback?client_id=hoja-y-tinta-web&state=%7B%22redirectUri%22%3A%22%2F%22%7D</code>
 
-Como se puede ver en la URL, esta redirigiendo el tráfico a otro sitio. Para saber a dónde, hay que decodificar con el decoder de *Burp Suite* pues está 'URLcodeado'.
+Como se puede ver en la URL, está redirigiendo el tráfico a otro sitio. Para saber a dónde, hay que decodificar con el decoder de *Burp Suite*, pues la dirección está 'URLcodeado'.
 
 <code>{"redirectUri":"/"}</code>
 
-En este caso, no parece redirigir a ninguna *web*, pero añadiendo detrás una dirección podemos dirigirnos a ella y aquí se produce el *open redirect*. Para ello probamos con la dirección ya visitada *dockerlabs.es', pero además se debe añadir una segunda barra '/' para poder 'bypasear' la restricción y obtener una dirección maliciosa.
+En este caso, no parece redirigir a ninguna *web*, pero añadiendo detrás una dirección podemos dirigirnos a ella y es aquí donde se produce el *open redirect*. Para ello probamos con la dirección ya visitada 'dockerlabs.es', pero además se debe añadir una segunda barra '/' para poder 'bypasear' la restricción y obtener una dirección maliciosa. De manera que queda así:
 
 <code>http://hojaytinta.lab/account/logout/callback?client_id=hoja-y-tinta-web&state={"redirectUri":"//dockerlabs.es"}</code>
 
 <img width="1216" height="853" alt="image" src="https://github.com/user-attachments/assets/9526ae16-bbdb-4a05-8641-13007c7d3a8b" />
+
+Una vez explotada la vulnerabilidad, vamos a por el segundo *open redirect*. Este se encuentra en un anuncio de la web, los cuales son propensos a tener este tipo de vulnerabilidades.
