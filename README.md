@@ -36,3 +36,16 @@ En este caso, no parece redirigir a ninguna *web*, pero añadiendo detrás una d
 <img width="1216" height="853" alt="image" src="https://github.com/user-attachments/assets/9526ae16-bbdb-4a05-8641-13007c7d3a8b" />
 
 Una vez explotada la vulnerabilidad, vamos a por el segundo *open redirect*. Este se encuentra en un anuncio de la web, los cuales son propensos a tener este tipo de vulnerabilidades.
+
+De nuevo, desde *Burp Suite* se puede ver la petición y como vuelve a haber una redirección. Además utilizando el *Decoder*, se descifra la *URL*.
+
+URL
+URL DECODIFICADA
+
+Cambiar simplemente la dirección *web* por a la que queremos dirigirnos no es suficiente y es necesario añadir un '@' Esta manera de redirecionar no es una vulnerabilidad, es como funciona internet, se puede probar poniendo en el navegador lo siguiente:
+
+<code>google.com@dockerlabs.es</code>
+
+URL@dockerlabs.es
+
+Sin embargo esto no funciona pues es necesario tratar con las cabeceras de la petición web, en este caso con la cabecera 'Referer' para que reconozca el origen de la petición. Lo único necesario, pues, es añadir a la cabecera la dirección de la página principal.
