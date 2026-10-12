@@ -75,4 +75,4 @@ Como se muestra en la imagen, la respuesta del *Repeater* de *Burp Suite* indica
 
 Lo que haría el atacante sería crear una página *web* parecida a la original para redireccionar a la víctima a ella. Una vez en su página podría pedirle la información que desea robarle, como datos bancarios o contraseñas de inicio de sesión.
 
-Con este post se pretende mostrar una vulnerabilidad que se puede encontrar haciendo *bug bounty*, donde un atacante podría hacer ir a la víctima a la página que él quisera y cometer acciones maliciosas contra el atacado.
+Con este post se pretende mostrar una vulnerabilidad que se podría encontrar en la vida real, más allá de los clásicos y educativos CTFs. Una vulnerabilidad donde un atacante podría hacer ir a la víctima a la página que él quisiera y cometer acciones maliciosas contra el atacado.
