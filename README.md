@@ -17,6 +17,10 @@ Para llevar a cabo este ejercicio he utilizado la plataforma [Docker labs](https
 
 <img width="522" height="303" alt="image" src="https://github.com/user-attachments/assets/68cb0668-57f9-4eda-a6d4-615a1eb358aa" />
 
+Como último paso se deben añadir la IP y la dirección en '/etc/hosts'.
+
+<img width="549" height="198" alt="Captura de pantalla 2026-10-07 191432" src="https://github.com/user-attachments/assets/d6c03a25-ba0a-45e4-93f3-f65e71870d8a" />
+
 Una vez realizadas estas acciones, se procede a explotar la vulnerabilidad.
 
 Al acceder a la dirección *web* damos con una página de venta de libros, para encontrar el primer *open redirect* hay que cerrar sesión. Antes, como es obvio, es necesario iniciar sesión con los datos ya facilitados en la página. Para leer la petición que se produce con el cierre de la sesión se utiliza **Burp Suite** y desde la la pestaña Proxy>HTTPhistory analizamos la petición GET del cierre de sesión.
@@ -52,5 +56,14 @@ Cambiar simplemente la dirección *web* por a la que queremos dirigirnos no es s
 <img width="1212" height="195" alt="Captura de pantalla 2026-10-07 183441" src="https://github.com/user-attachments/assets/af00d0f8-f3b1-44ef-b56e-43f25780e32e" />
 <img width="1663" height="226" alt="Captura de pantalla 2026-10-07 183656" src="https://github.com/user-attachments/assets/d2630f1a-f1f8-4614-bd7c-b921ccfdcb0a" />
 
+Sin embargo esto no funciona pues es necesario tratar con las cabeceras de la petición web, en este caso con la cabecera 'Referer' para que reconozca el origen de la petición. Lo único necesario, pues, es añadir a la cabecera, de la petición, la dirección de la página principal para que la redirección se produzca desde el mismo dominio. El proceso para encontrar la petición es el mismo que en el primer *open redirect*.
 
-Sin embargo esto no funciona pues es necesario tratar con las cabeceras de la petición web, en este caso con la cabecera 'Referer' para que reconozca el origen de la petición. Lo único necesario, pues, es añadir a la cabecera la dirección de la página principal.
+<code>Referer: http://hojaytinta.lab/libro/el-jardin-de-sal</code>
+
+<img width="1497" height="320" alt="Captura de pantalla 2026-10-07 185259" src="https://github.com/user-attachments/assets/ac99196d-666f-46d7-a9bd-08913ccccf43" />
+
+Como se muestra en la imagen, la respuesta del *Repeater* de *Burp Suite* indica la redirección. Pero llegados a este punto, esto no es suficiente para considerarse crítico pues, como he mostrado, es necesario añadir manualmente la cabecera *Referer*. Si solamente se enviara a la víctima la *URL*, no redirigiría a esta, pues falta la cabecera que indica que la dirección viene del mismo dominio. Esto se soluciona utilizando la sección de comentarios de la propia *web*, donde dejando un mensaje con el *link* ya funcionaría, puesto que el usuario al clicar estaría yendo desde la propia dirección *web* y estaría haciendo la funcion del *Referer*.
+
+<img width="1353" height="792" alt="Captura de pantalla 2026-10-07 191012" src="https://github.com/user-attachments/assets/0ad06bde-c483-4719-bf63-03c4c019f7c5" />
+
+Lo que haría el atacante sería crear una página *web* parecida a la original para redireccionar a la víctima a ella. Una vez en su página podría pedirle la información que desea robarle, como datos bancarios o contraseñas de inicio de sesión.
