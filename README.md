@@ -3,7 +3,7 @@
 <div>
   <img src="https://img.shields.io/badge/-Kali-5e8ca8?style=for-the-badge&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/-Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" />
-  <img src="https://img.shields.io/badge/-python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Burp suite-FF6633?style=for-the-badge&logo=burpsuite&logoColor=white" />
   burpsuit
 </div>
 
@@ -60,9 +60,13 @@ Sin embargo esto no funciona pues es necesario tratar con las cabeceras de la pe
 
 <code>Referer: http://hojaytinta.lab/libro/el-jardin-de-sal</code>
 
+<code>GET /ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal HTTP/1.1</code>
+
 <img width="1497" height="320" alt="Captura de pantalla 2026-10-07 185259" src="https://github.com/user-attachments/assets/ac99196d-666f-46d7-a9bd-08913ccccf43" />
 
 Como se muestra en la imagen, la respuesta del *Repeater* de *Burp Suite* indica la redirección. Pero llegados a este punto, esto no es suficiente para considerarse crítico pues, como he mostrado, es necesario añadir manualmente la cabecera *Referer*. Si solamente se enviara a la víctima la *URL*, no redirigiría a esta, pues falta la cabecera que indica que la dirección viene del mismo dominio. Esto se soluciona utilizando la sección de comentarios de la propia *web*, donde dejando un mensaje con el *link* ya funcionaría, puesto que el usuario al clicar estaría yendo desde la propia dirección *web* y estaría haciendo la funcion del *Referer*.
+
+<code>Link para descuetno del 20%: http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal</code>
 
 <img width="1353" height="792" alt="Captura de pantalla 2026-10-07 191012" src="https://github.com/user-attachments/assets/0ad06bde-c483-4719-bf63-03c4c019f7c5" />
 
