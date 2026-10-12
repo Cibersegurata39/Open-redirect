@@ -21,7 +21,7 @@ Una vez realizadas estas acciones, se procede a explotar la vulnerabilidad.
 
 Al acceder a la dirección *web* damos con una página de venta de libros, para encontrar el primer *open redirect* hay que cerrar sesión. Antes, como es obvio, es necesario iniciar sesión con los datos ya facilitados en la página. Para leer la petición que se produce con el cierre de la sesión se utiliza **Burp Suite** y desde la la pestaña Proxy>HTTPhistory analizamos la petición GET del cierre de sesión.
 
-<img width="743" height="712" alt="Captura de pantalla 2026-10-07 004311" src="https://github.com/user-attachments/assets/baf7aa29-e1a7-4572-b34c-f00a3abfc0ad" />
+<img width="643" height="612" alt="Captura de pantalla 2026-10-07 004311" src="https://github.com/user-attachments/assets/baf7aa29-e1a7-4572-b34c-f00a3abfc0ad" />
 
 <code>/account/logout/callback?client_id=hoja-y-tinta-web&state=%7B%22redirectUri%22%3A%22%2F%22%7D</code>
 
@@ -33,19 +33,24 @@ En este caso, no parece redirigir a ninguna *web*, pero añadiendo detrás una d
 
 <code>http://hojaytinta.lab/account/logout/callback?client_id=hoja-y-tinta-web&state={"redirectUri":"//dockerlabs.es"}</code>
 
-<img width="1216" height="853" alt="image" src="https://github.com/user-attachments/assets/9526ae16-bbdb-4a05-8641-13007c7d3a8b" />
+<img width="916" height="553" alt="image" src="https://github.com/user-attachments/assets/9526ae16-bbdb-4a05-8641-13007c7d3a8b" />
 
 Una vez explotada la vulnerabilidad, vamos a por el segundo *open redirect*. Este se encuentra en un anuncio de la web, los cuales son propensos a tener este tipo de vulnerabilidades.
 
 De nuevo, desde *Burp Suite* se puede ver la petición y como vuelve a haber una redirección. Además utilizando el *Decoder*, se descifra la *URL*.
 
-URL
-URL DECODIFICADA
+<img width="935" height="378" alt="Captura de pantalla 2026-10-07 183207" src="https://github.com/user-attachments/assets/f90e25c8-a724-4b81-aef4-7d595c03bfa3" />
+
+<code>http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https%3A%2F%2Fads.hojaytinta-partners.com%2Fpixel%3Fcampaign%3Dtrailer%26book%3Del-jardin-de-sal</code>
+
+<code>http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com/pixel?campaign=trailer&book=el-jardin-de-sa</code>
 
 Cambiar simplemente la dirección *web* por a la que queremos dirigirnos no es suficiente y es necesario añadir un '@' Esta manera de redirecionar no es una vulnerabilidad, es como funciona internet, se puede probar poniendo en el navegador lo siguiente:
 
 <code>google.com@dockerlabs.es</code>
 
-URL@dockerlabs.es
+<img width="1212" height="195" alt="Captura de pantalla 2026-10-07 183441" src="https://github.com/user-attachments/assets/af00d0f8-f3b1-44ef-b56e-43f25780e32e" />
+<img width="1663" height="226" alt="Captura de pantalla 2026-10-07 183656" src="https://github.com/user-attachments/assets/d2630f1a-f1f8-4614-bd7c-b921ccfdcb0a" />
+
 
 Sin embargo esto no funciona pues es necesario tratar con las cabeceras de la petición web, en este caso con la cabecera 'Referer' para que reconozca el origen de la petición. Lo único necesario, pues, es añadir a la cabecera la dirección de la página principal.
