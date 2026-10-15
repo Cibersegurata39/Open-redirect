@@ -3,10 +3,11 @@
 En este primer post de la sección de **Bug bounty** se va a llevar a cabo la explicación de qué es y de cómo funciona un *open redirect*, un tipo de vulnerabilidad que es relativamente fácil de encontrar.
 
 <div>
+  <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/-Kali-5e8ca8?style=for-the-badge&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/-Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" />
   <img src="https://img.shields.io/badge/-Burp suite-FF6633?style=for-the-badge&logo=burpsuite&logoColor=white" />
-  <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  
 </div>
 
 ## Introducción
