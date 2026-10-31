@@ -70,7 +70,7 @@ Sin embargo, esto no funciona pues es necesario tratar con las cabeceras de la p
 
 Como se muestra en la imagen, la respuesta del *Repeater* de *Burp Suite* indica la redirección. Pero llegados a este punto, esto no es suficiente para considerarse crítico pues, como he mostrado, es necesario añadir manualmente la cabecera *Referer*. Si solamente se enviara a la víctima la *URL*, no redirigiría a esta, pues falta la cabecera que indica que la dirección viene del mismo dominio. Esto se soluciona utilizando la sección de comentarios de la propia *web*, donde dejando un mensaje con el *link* ya funcionaría, puesto que el usuario al clicar estaría yendo desde la propia dirección *web* y estaría haciendo la función del *Referer*.
 
-<code>Link para descuetno del 20%: `http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal`</code>
+<code>Link para descuento del 20%: `http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal`</code>
 
 <img width="1353" height="792" alt="Captura de pantalla 2026-10-07 191012" src="https://github.com/user-attachments/assets/0ad06bde-c483-4719-bf63-03c4c019f7c5" />
 
