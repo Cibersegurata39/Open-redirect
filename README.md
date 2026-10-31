@@ -39,7 +39,7 @@ Como se puede ver en la URL, está redirigiendo el tráfico a otro sitio. Para s
 
 En este caso, no parece redirigir a ninguna *web*, pero añadiendo detrás una dirección podemos dirigirnos a ella y es aquí donde se produce el *open redirect*. Para ello probamos con la dirección ya visitada 'dockerlabs.es', a la cual además se debe añadir una segunda barra '/' para poder 'bypasear' la restricción y obtener una dirección maliciosa. De manera que queda así:
 
-<code>http://hojaytinta.lab/account/logout/callback?client_id=hoja-y-tinta-web&state={"redirectUri":"//dockerlabs.es"}</code>
+<code>`http://hojaytinta.lab/account/logout/callback?client_id=hoja-y-tinta-web&state={"redirectUri":"//dockerlabs.es"}`</code>
 
 <img width="916" height="553" alt="image" src="https://github.com/user-attachments/assets/9526ae16-bbdb-4a05-8641-13007c7d3a8b" />
 
@@ -49,28 +49,28 @@ De nuevo, desde *Burp Suite* se puede ver la petición y como vuelve a haber una
 
 <img width="935" height="378" alt="Captura de pantalla 2026-10-07 183207" src="https://github.com/user-attachments/assets/f90e25c8-a724-4b81-aef4-7d595c03bfa3" />
 
-<code>http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https%3A%2F%2Fads.hojaytinta-partners.com%2Fpixel%3Fcampaign%3Dtrailer%26book%3Del-jardin-de-sal</code>
+<code>`http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https%3A%2F%2Fads.hojaytinta-partners.com%2Fpixel%3Fcampaign%3Dtrailer%26book%3Del-jardin-de-sal`</code>
 
-<code>http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com/pixel?campaign=trailer&book=el-jardin-de-sa</code>
+<code>`http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com/pixel?campaign=trailer&book=el-jardin-de-sa`</code>
 
 Cambiar simplemente la dirección *web* por a la que queremos dirigirnos no es suficiente y es necesario añadir un '@' Esta manera de redirecionar no es una vulnerabilidad, es como funciona internet, se puede probar poniendo en el navegador lo siguiente:
 
-<code>google.com@dockerlabs.es</code>
+<code>`google.com@dockerlabs.es`</code>
 
 <img width="1212" height="195" alt="Captura de pantalla 2026-10-07 183441" src="https://github.com/user-attachments/assets/af00d0f8-f3b1-44ef-b56e-43f25780e32e" />
 <img width="1663" height="226" alt="Captura de pantalla 2026-10-07 183656" src="https://github.com/user-attachments/assets/d2630f1a-f1f8-4614-bd7c-b921ccfdcb0a" />
 
 Sin embargo, esto no funciona pues es necesario tratar con las cabeceras de la petición web, en este caso con la cabecera 'Referer' para que reconozca el origen de la petición. Lo indispensable es añadir a la cabecera de la petición la dirección de la página principal para que la redirección se produzca desde el mismo dominio. El proceso para encontrar la petición es el mismo que en el primer *open redirect*.
 
-<code>Referer: http://hojaytinta.lab/libro/el-jardin-de-sal</code>
+<code>Referer: `http://hojaytinta.lab/libro/el-jardin-de-sal`</code>
 
-<code>GET /ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal HTTP/1.1</code>
+<code>GET /ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=`https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal HTTP/1.1`</code>
 
 <img width="1497" height="320" alt="Captura de pantalla 2026-10-07 185259" src="https://github.com/user-attachments/assets/ac99196d-666f-46d7-a9bd-08913ccccf43" />
 
 Como se muestra en la imagen, la respuesta del *Repeater* de *Burp Suite* indica la redirección. Pero llegados a este punto, esto no es suficiente para considerarse crítico pues, como he mostrado, es necesario añadir manualmente la cabecera *Referer*. Si solamente se enviara a la víctima la *URL*, no redirigiría a esta, pues falta la cabecera que indica que la dirección viene del mismo dominio. Esto se soluciona utilizando la sección de comentarios de la propia *web*, donde dejando un mensaje con el *link* ya funcionaría, puesto que el usuario al clicar estaría yendo desde la propia dirección *web* y estaría haciendo la función del *Referer*.
 
-<code>Link para descuetno del 20%: http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal</code>
+<code>Link para descuetno del 20%: `http://hojaytinta.lab/ads/tr?ci=el-jardin-de-sal-9f21&e=i&tu=https://ads.hojaytinta-partners.com@www.google.es&book=el-jardin-de-sal`</code>
 
 <img width="1353" height="792" alt="Captura de pantalla 2026-10-07 191012" src="https://github.com/user-attachments/assets/0ad06bde-c483-4719-bf63-03c4c019f7c5" />
 
